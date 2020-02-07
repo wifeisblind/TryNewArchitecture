@@ -1,0 +1,98 @@
+{
+  "error_message": "",
+
+  "result": "success",
+
+  "exceptions": [
+      {
+        "id": 1,
+        "code": "21",
+        "name": "貨件遺失",
+        "type": "DR"
+      },
+      {
+        "id": 2,
+        "code": "22",
+        "name": "貨件損毀",
+        "type": "DR"
+      },
+      {
+        "id": 3,
+        "code": "23",
+        "name": "聯絡不上收件人",
+        "type": "DR"
+      },
+      {
+        "id": 4,
+        "code": "24",
+        "name": "收件人不在家且電聯不上",
+        "type": "DR"
+      },
+      {
+        "id": 5,
+        "code": "25",
+        "name": "地址錯誤",
+        "type": "DR"
+      },
+      {
+        "id": 6,
+        "code": "26",
+        "name": "收件人不在家且電話錯誤",
+        "type": "DR"
+      },
+      {
+        "id": 7,
+        "code": "27",
+        "name": "另約時間配送",
+        "type": "DR"
+      },
+      {
+        "id": 8,
+        "code": "28",
+        "name": "拒收",
+        "type": "DR"
+      },
+      {
+        "id": 9,
+        "code": "29",
+        "name": "分件區域錯誤",
+        "type": "DR"
+      },
+      {
+        "id": 10,
+        "code": "30",
+        "name": "託運單遺失",
+        "type": "DR"
+      },
+      {
+        "id": 11,
+        "code": "31",
+        "name": "公司行號休息",
+        "type": "DR"
+      },
+      {
+        "id": 12,
+        "code": "32",
+        "name": "未完成運送",
+        "type": "DR"
+      },
+      {
+        "id": 13,
+        "code": "33",
+        "name": "留存",
+        "type": "DR"
+      },
+      {
+        "id": 14,
+        "code": "34",
+        "name": "客戶改址",
+        "type": "DR"
+      },
+      {
+        "id": 15,
+        "code": "99",
+        "name": "其他",
+        "type": "DR"
+      }
+    ]
+}
