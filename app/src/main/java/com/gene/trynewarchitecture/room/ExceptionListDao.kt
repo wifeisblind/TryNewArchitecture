@@ -1,6 +1,5 @@
 package com.gene.trynewarchitecture.room
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -11,8 +10,8 @@ import com.gene.trynewarchitecture.room.entity.ExceptionList
 interface ExceptionListDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(exceptionList: ExceptionList)
+    suspend fun insert(exceptionList: ExceptionList)
 
     @Query("SELECT * FROM exception_list WHERE type = :type")
-    fun getExceptionList(type: String): LiveData<ExceptionList>
+    suspend fun getExceptionList(type: String): ExceptionList?
 }

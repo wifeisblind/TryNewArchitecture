@@ -4,6 +4,8 @@ import androidx.lifecycle.*
 import com.gene.trynewarchitecture.api.response.TaskListResponse
 import com.gene.trynewarchitecture.repository.ExceptionListRepository
 import com.gene.trynewarchitecture.repository.TasksRepository
+import com.gene.trynewarchitecture.utils.Status
+import com.gene.trynewarchitecture.utils.Status.*
 
 @Suppress("CanBeParameter")
 class ExceptionViewModel(
@@ -13,20 +15,30 @@ class ExceptionViewModel(
 
     private var _taskNo: String? = null
 
-    val isLoading: MutableLiveData<Boolean> = MutableLiveData()
+    val status: MutableLiveData<Status> = MutableLiveData()
 
     private val taskResponse: LiveData<TaskListResponse> by lazy {
         liveData {
-            emit(tasksRepository.getTaskByNumber(_taskNo!!))
+            val resource = tasksRepository.getTaskByNumber(_taskNo!!)
+            if (resource.isSuccess) {
+                emit(resource.data!!)
+            } else {
+                status.value = ERROR
+            }
         }
     }
 
     val exceptionList: LiveData<List<String>> by lazy {
-        isLoading.value = true
+        status.value = LOADING
         taskResponse.switchMap { task ->
             liveData {
-                emit(exceptionListRepository.getExceptionList(task.type).map { it.name })
-                isLoading.value = false
+                val resource = exceptionListRepository.getExceptionList(task.type)
+                if (resource.isSuccess) {
+                    emit(resource.data!!.map { it.name })
+                    status.value = SUCCESS
+                } else {
+                    status.value = ERROR
+                }
             }
         }
     }

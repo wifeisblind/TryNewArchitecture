@@ -1,6 +1,7 @@
-package com.gene.trynewarchitecture.room.typeconverter
+package com.gene.trynewarchitecture.room
 
 import androidx.room.TypeConverter
+import com.gene.trynewarchitecture.api.response.ExceptionListResponse.Exception
 import com.google.gson.Gson
 import com.google.gson.JsonSyntaxException
 import com.orhanobut.logger.Logger

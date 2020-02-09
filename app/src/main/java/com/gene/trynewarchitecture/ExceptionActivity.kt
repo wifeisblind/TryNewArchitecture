@@ -2,10 +2,11 @@ package com.gene.trynewarchitecture
 
 import android.os.Bundle
 import android.view.View
-import android.widget.AdapterView.OnItemClickListener
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import com.gene.trynewarchitecture.utils.Status
 import com.gene.trynewarchitecture.viewmodel.ExceptionViewModel
 import kotlinx.android.synthetic.main.activity_exceptoin.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -22,13 +23,20 @@ class ExceptionActivity : AppCompatActivity() {
 
         viewModel.setTaskNo(taskNo)
 
-        viewModel.isLoading.observe(this, Observer { isLoading ->
-            if (isLoading) {
-                progressBar.visibility = View.VISIBLE
-                listView.visibility = View.INVISIBLE
-            } else {
-                progressBar.visibility = View.INVISIBLE
-                listView.visibility = View.VISIBLE
+        viewModel.status.observe(this, Observer { status ->
+            when(status) {
+                Status.SUCCESS -> {
+                    progressBar.visibility = View.INVISIBLE
+                    listView.visibility = View.VISIBLE
+                }
+                Status.ERROR -> {
+                    Toast.makeText(this, "Error", Toast.LENGTH_LONG).show()
+                }
+                Status.LOADING -> {
+                    progressBar.visibility = View.VISIBLE
+                    listView.visibility = View.INVISIBLE
+                }
+                else -> {}
             }
         })
 

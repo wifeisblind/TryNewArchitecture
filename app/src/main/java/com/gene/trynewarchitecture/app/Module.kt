@@ -1,9 +1,13 @@
 package com.gene.trynewarchitecture.app
 
+import android.app.Application
 import android.content.Context
+import androidx.room.Room
 import com.gene.trynewarchitecture.api.NetworkService
 import com.gene.trynewarchitecture.repository.ExceptionListRepository
 import com.gene.trynewarchitecture.repository.TasksRepository
+import com.gene.trynewarchitecture.room.ExceptionListDao
+import com.gene.trynewarchitecture.room.TMSDatabase
 import com.gene.trynewarchitecture.viewmodel.ExceptionViewModel
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -17,11 +21,23 @@ val appModule = module {
 
     single { buildNetworkService() }
 
+    single { buildDatabase(androidApplication()) }
+
     factory { TasksRepository(get()) }
 
-    factory { ExceptionListRepository(get()) }
+    factory { ExceptionListRepository(get(), getExceptionListDao(get())) }
 
     viewModel { ExceptionViewModel(get(),get()) }
+}
+
+fun buildDatabase(app: Application): TMSDatabase {
+    return Room.databaseBuilder(app, TMSDatabase::class.java, "tms.db")
+        .fallbackToDestructiveMigration()
+        .build()
+}
+
+fun getExceptionListDao(db: TMSDatabase): ExceptionListDao {
+    return db.exceptionsDao()
 }
 
 fun buildNetworkService(): NetworkService =
